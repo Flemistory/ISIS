@@ -1,38 +1,42 @@
-#include <iostream>
+﻿#include <iostream>
 #include <iomanip>
 #include <list>
 #include <locale>
 
+using namespace std;
+
+// Функция для вывода меню и получения выбора пользователя
 int showMenu() {
     int choice;
-    std::cout << "\nМеню действий:\n";
-    std::cout << "0 - выход из программы\n";
-    std::cout << "1 - добавить указанный элемент в конец списка\n";
-    std::cout << "2 - удалить последний элемент из списка\n";
-    std::cout << "Выберите действие: ";
-    std::cin >> choice;
+    cout << "\nМеню действий:\n";
+    cout << "0 - выход из программы\n";
+    cout << "1 - добавить указанный элемент в конец списка\n";
+    cout << "2 - удалить последний элемент из списка\n";
+    cout << "Выберите действие: ";
+    cin >> choice;
     return choice;
 }
 
-void subtractSumFromEachElement(std::list<double>& myList, double sum) {
-    for (std::list<double>::iterator it = myList.begin(); it != myList.end(); ++it) {
+// Функция для вычитания из каждого числа суммы чисел с использованием итераторов
+void subtractSumFromEachElement(list<double>& myList, double sum) {
+    for (list<double>::iterator it = myList.begin(); it != myList.end(); ++it) {
         *it -= sum;
     }
 }
 
 int main() {
-    std::locale::global(std::locale("")); // Устанавливаем локаль по умолчанию (UTF-8)
+    locale::global(locale("")); // Устанавливаем локаль по умолчанию (UTF-8)
 
-    std::list<double> resultList;
+    list<double> resultList; // Используем список для хранения элементов
 
     int size;
-    std::cout << "Введите размерность исходного списка: ";
-    std::cin >> size;
+    cout << "Введите размерность исходного списка: ";
+    cin >> size;
 
-    std::cout << "Введите элементы списка через пробел:" << std::endl;
+    cout << "Введите элементы списка через пробел:" << endl;
     for (int i = 0; i < size; ++i) {
         double element;
-        std::cin >> element;
+        cin >> element;
         resultList.push_back(element);
     }
 
@@ -43,58 +47,60 @@ int main() {
 
     double average = sum / size;
 
-    std::cout << std::fixed << std::setprecision(3);
+    cout << fixed << setprecision(3); // Устанавливаем фиксированный формат вывода с тремя знаками после запятой
 
-    std::cout << "Результаты выполнения опытов:" << std::endl;
+    cout << "Результаты выполнения опытов:" << endl;
 
-    std::cout << "Размерность исходного списка: " << size << std::endl;
-    std::cout << "Исходные элементы списка: ";
+    cout << "Размерность исходного списка: " << size << endl;
+    cout << "Исходные элементы списка: ";
     for (const double& element : resultList) {
-        std::cout << element << " ";
+        cout << element << " ";
     }
-    std::cout << std::endl;
+    cout << endl;
 
     resultList.push_back(sum);
     resultList.push_back(average);
 
     int choice;
     do {
-        std::cout << "Результат: ";
+        cout << "Результат: ";
         for (const double& element : resultList) {
-            std::cout << std::fixed << std::setprecision(3) << element << " ";
+            cout << fixed << setprecision(3) << element << " ";
         }
-        std::cout << std::endl;
+        cout << endl;
 
-        choice = showMenu();
+        choice = showMenu(); // Отображаем меню и получаем выбор пользователя
         switch (choice) {
-            case 0:
-                std::cout << "Программа завершена." << std::endl;
-                break;
-            case 1:
-                double newElement;
-                std::cout << "Введите элемент для добавления в конец списка: ";
-                std::cin >> newElement;
-                resultList.push_back(newElement);
-                break;
-            case 2:
-                if (!resultList.empty()) {
-                    resultList.pop_back();
-                } else {
-                    std::cout << "Список пуст, нельзя удалить элемент." << std::endl;
-                }
-                break;
-            default:
-                std::cout << "Некорректный выбор. Пожалуйста, выберите действие из меню." << std::endl;
+        case 0:
+            cout << "Программа завершена." << endl;
+            break;
+        case 1:
+            double newElement;
+            cout << "Введите элемент для добавления в конец списка: ";
+            cin >> newElement;
+            resultList.push_back(newElement);
+            break;
+        case 2:
+            if (!resultList.empty()) {
+                resultList.pop_back(); // Удаляем последний элемент из списка
+            }
+            else {
+                cout << "Список пуст, нельзя удалить элемент." << endl;
+            }
+            break;
+        default:
+            cout << "Некорректный выбор. Пожалуйста, выберите действие из меню." << endl;
         }
     } while (choice != 0);
 
+    // Вызываем функцию для вычитания суммы из каждого элемента списка
     subtractSumFromEachElement(resultList, sum);
 
-    std::cout << "Финальный результат после вычитания суммы:" << std::endl;
+    cout << "Финальный результат после вычитания суммы:" << endl;
     for (const double& element : resultList) {
-        std::cout << std::fixed << std::setprecision(3) << element << " ";
+        cout << fixed << setprecision(3) << element << " ";
     }
-    std::cout << std::endl;
+    cout << endl;
 
     return 0;
 }
