@@ -1,6 +1,5 @@
-﻿#include <iostream>
+#include <iostream>
 #include <cmath>
-using namespace std;
 
 class Poligon {
 protected:
@@ -11,20 +10,20 @@ protected:
 public:
     Poligon() {
         // Вводим количество вершин многоугольника
-        cin >> size;
+        std::cin >> size;
         x = new int[size];
         y = new int[size];
 
         // Вводим координаты x для каждой вершины
-        cout << "Enter x-coordinates: ";
+        std::cout << "Enter x-coordinates: ";
         for (int i = 0; i < size; i++) {
-            cin >> x[i];
+            std::cin >> x[i];
         }
 
         // Вводим координаты y для каждой вершины
-        cout << "Enter y-coordinates: ";
+        std::cout << "Enter y-coordinates: ";
         for (int i = 0; i < size; i++) {
-            cin >> y[i];
+            std::cin >> y[i];
         }
     }
 
@@ -35,7 +34,7 @@ public:
             polygon += ((x[i] - x[i + 1]) * (y[i] + y[i + 1])) / 2.0;
         }
         polygon += ((x[size - 1] - x[0]) * (y[size - 1] + y[0])) / 2.0;
-        polygon = abs(polygon);
+        polygon = std::abs(polygon);
         return polygon;
     }
 
@@ -43,25 +42,25 @@ public:
         // Вычисляем периметр многоугольника как сумму длин его сторон
         double perimeter = 0;
         for (int i = 0; i < size - 1; i++) {
-            perimeter += sqrt(pow((x[i + 1] - x[i]), 2) + pow((y[i + 1] - y[i]), 2));
+            perimeter += std::sqrt(std::pow((x[i + 1] - x[i]), 2) + std::pow((y[i + 1] - y[i]), 2));
         }
-        perimeter += sqrt(pow((x[size - 1] - x[0]), 2) + pow((y[size - 1] - y[0]), 2));
+        perimeter += std::sqrt(std::pow((x[size - 1] - x[0]), 2) + std::pow((y[size - 1] - y[0]), 2));
         return static_cast<float>(perimeter);
     }
 
     void print() {
         // Выводим координаты вершин, периметр и площадь многоугольника
-        cout << "Abscissa: ";
+        std::cout << "Abscissa: ";
         for (int i = 0; i < size; i++) {
-            cout << x[i] << " ";
+            std::cout << x[i] << " ";
         }
 
-        cout << "Ordinata: ";
+        std::cout << "Ordinata: ";
         for (int i = 0; i < size; i++) {
-            cout << y[i] << " ";
+            std::cout << y[i] << " ";
         }
 
-        cout << "Perimeter = " << calculateP() << " Area = " << calculateS() << endl;
+        std::cout << "Perimeter = " << calculateP() << " Area = " << calculateS() << std::endl;
     }
 
     friend bool operator^(Poligon p1, Poligon p2) {
@@ -95,18 +94,17 @@ int main() {
     Poligon p1;
     Poligon p2;
 
-    cout << "Polygon 1: ";
+    std::cout << "Polygon 1: ";
     p1.print();
 
-    cout << "Polygon 2: ";
+    std::cout << "Polygon 2: ";
     p2.print();
 
     bool fol = p1 ^ p2;
     if (fol == true) {
-        cout << "Polygon 1 intersects Polygon 2" << endl;
-    }
-    else {
-        cout << "Polygon 1 does not intersect Polygon 2" << endl;
+        std::cout << "Polygon 1 intersects Polygon 2" << std::endl;
+    } else {
+        std::cout << "Polygon 1 does not intersect Polygon 2" << std::endl;
     }
 
     return 0;
